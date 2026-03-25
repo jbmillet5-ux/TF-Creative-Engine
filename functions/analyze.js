@@ -1,43 +1,57 @@
-const DEFAULTS = {
+const DATA = {
   competitors: [
     {
       id: 'truthfinder',
       name: 'TruthFinder',
       metaUrl: 'https://www.facebook.com/ads/library/?active_status=active&ad_type=all&country=US&is_targeted_country=false&media_type=all&search_type=keyword_unordered&q=TruthFinder',
-      focus: 'Primary brand reference',
-      patterns: ['dark premium gradients', 'trust-forward utility messaging', 'search-led framing'],
-      formats: ['static image', 'product-led UI mockup', 'headline-led card']
+      patterns: ['dark premium gradient', 'trust-forward utility copy', 'search-led framing'],
+      formats: ['headline-led static', 'UI mockup', 'premium card layout']
     },
     {
       id: 'beenverified',
       name: 'BeenVerified',
       metaUrl: 'https://www.facebook.com/ads/library/?active_status=active&ad_type=all&country=US&is_targeted_country=false&media_type=all&search_type=keyword_unordered&q=BeenVerified',
-      focus: 'Category comparison',
-      patterns: ['urgency-led headlines', 'caller anxiety', 'bright badges'],
-      formats: ['static image', 'testimonial card', 'benefit collage']
+      patterns: ['utility-first headline', 'consumer urgency', 'badge-led design'],
+      formats: ['static image', 'benefit collage', 'caller lookup card']
     },
     {
-      id: 'instantcheckmate',
-      name: 'Instant Checkmate',
-      metaUrl: 'https://www.facebook.com/ads/library/?active_status=active&ad_type=all&country=US&is_targeted_country=false&media_type=all&search_type=keyword_unordered&q=Instant%20Checkmate',
-      focus: 'Category comparison',
-      patterns: ['fear plus curiosity', 'bold contrast', 'trust-and-safety headlines'],
-      formats: ['clean static', 'mobile search UI', 'testimonial card']
+      id: 'spokeo',
+      name: 'Spokeo',
+      metaUrl: 'https://www.facebook.com/ads/library/?active_status=active&ad_type=all&country=US&is_targeted_country=false&media_type=all&search_type=keyword_unordered&q=Spokeo',
+      patterns: ['clean trust design', 'light UI treatment', 'clarity-led messaging'],
+      formats: ['simple static', 'search result mockup', 'minimal card']
+    },
+    {
+      id: 'peoplefinders',
+      name: 'PeopleFinders',
+      metaUrl: 'https://www.facebook.com/ads/library/?active_status=active&ad_type=all&country=US&is_targeted_country=false&media_type=all&search_type=keyword_unordered&q=PeopleFinders',
+      patterns: ['direct-response utility', 'lookup framing', 'functional layout'],
+      formats: ['headline static', 'simple search card', 'benefit panel']
+    },
+    {
+      id: 'peoplelooker',
+      name: 'PeopleLooker',
+      metaUrl: 'https://www.facebook.com/ads/library/?active_status=active&ad_type=all&country=US&is_targeted_country=false&media_type=all&search_type=keyword_unordered&q=PeopleLooker',
+      patterns: ['approachable tone', 'curiosity plus safety', 'soft trust language'],
+      formats: ['mobile card', 'story-style static', 'simple CTA card']
     }
   ],
   angles: [
-    'First-date confidence check',
+    'First-date confidence',
     'Facebook Marketplace trust check',
-    'Reverse phone lookup for suspicious calls',
-    'Know more before you meet someone',
-    'Family peace-of-mind search',
-    'Neighbor or address context'
+    'Unknown caller clarity',
+    'Know who you are dealing with',
+    'Family peace of mind',
+    'Neighbor and address awareness',
+    'Online seller verification',
+    'Reverse phone lookup utility'
   ],
   hooks: [
     'Before you meet, know more.',
+    'Before you buy, check first.',
     'Unknown caller? Start with a search.',
-    'Trust your gut. Then verify.',
     'Search first. Decide better.',
+    'Trust your gut. Then verify.',
     'A quick search beats regret later.'
   ],
   useCases: [
@@ -45,33 +59,39 @@ const DEFAULTS = {
     'Facebook Marketplace',
     'Unknown caller',
     'New neighbor awareness',
-    'Teen safety / family peace of mind',
-    'Local buying and selling'
+    'Family safety',
+    'Meeting someone from a marketplace app',
+    'Reverse phone lookup',
+    'Seller or buyer verification'
   ],
   trends: [
-    'UGC proof card',
     'Dark safety dashboard',
-    'Editorial pop graphic',
     'Search UI screenshot',
-    'Alert banner static'
+    'UGC proof card',
+    'Minimal premium typography',
+    'Alert banner static',
+    'Mobile card stack'
+  ],
+  ctas: ['Search Now', 'Learn More', 'Check Now', 'See More', 'View Report'],
+  sampleCreatives: [
+    { competitorId: 'beenverified', kicker: 'Unknown caller', headline: 'Who keeps calling?', body: 'A lookup-first static focused on speed, badges, and immediate utility.', cta: 'Check Now' },
+    { competitorId: 'spokeo', kicker: 'Know more first', headline: 'A cleaner way to search.', body: 'Trust-forward, lighter visual treatment with a simple utility promise.', cta: 'Learn More' },
+    { competitorId: 'peoplefinders', kicker: 'Buyer or seller', headline: 'Before the meetup, verify.', body: 'Direct-response framing built around practical caution before a transaction.', cta: 'Search Now' },
+    { competitorId: 'peoplelooker', kicker: 'Curiosity + safety', headline: 'More context before you connect.', body: 'Approachable language that softens the category without losing the safety angle.', cta: 'See More' },
+    { competitorId: 'truthfinder', kicker: 'Premium utility', headline: 'Search first. Decide better.', body: 'A darker, more premium TruthFinder direction designed to feel stronger than the category.', cta: 'Search Now' }
   ]
 };
 
 const state = {
-  selectedCompetitorId: 'truthfinder',
-  selectedAngle: '',
-  selectedHook: '',
-  selectedUseCase: '',
-  selectedTrend: '',
-  customCopy: '',
-  competitorNotes: '',
-  generatedAds: [],
-  brand: {
-    cta: 'Search Now',
-    color1: '#16c1b0',
-    color2: '#5eead4',
-    color3: '#0f1720'
-  }
+  angle: DATA.angles[0],
+  hook: DATA.hooks[0],
+  useCase: DATA.useCases[0],
+  trend: DATA.trends[0],
+  cta: DATA.ctas[0],
+  competitorId: 'truthfinder',
+  copyGuidance: '',
+  notes: '',
+  generatedAds: []
 };
 
 const els = {};
@@ -79,455 +99,325 @@ const els = {};
 document.addEventListener('DOMContentLoaded', init);
 
 function init() {
-  cacheElements();
-  hydrateState();
-  bindEvents();
-  renderAll();
-}
-
-function cacheElements() {
-  const ids = [
-    'angleInput','hookInput','useCaseInput','platformTrendInput','angleSuggestions','hookSuggestions','useCaseSuggestions','trendSuggestions',
-    'ctaInput','customCopyInput','notesInput','brand1','brand2','brand3','competitorList','insightsList','ideaGrid','trendGrid','adsGrid','promptGrid','insightsStatus',
-    'generateAdsBtn','generateAdsTopBtn','generateInsightsBtn','saveStateBtn','clearSavedBtn','loadSeedDataBtn','downloadJsonBtn','downloadHtmlBtn'
-  ];
-  ids.forEach(id => els[id] = document.getElementById(id));
-}
-
-function hydrateState() {
-  const saved = safeParse(localStorage.getItem('truthfinderCreativeStudioState'));
-  if (saved) {
-    Object.assign(state, saved);
-    state.brand = Object.assign({}, state.brand, saved.brand || {});
-  }
-
-  state.selectedAngle = state.selectedAngle || DEFAULTS.angles[0];
-  state.selectedHook = state.selectedHook || DEFAULTS.hooks[0];
-  state.selectedUseCase = state.selectedUseCase || DEFAULTS.useCases[0];
-  state.selectedTrend = state.selectedTrend || DEFAULTS.trends[0];
-
-  fillDatalist(els.angleSuggestions, DEFAULTS.angles);
-  fillDatalist(els.hookSuggestions, DEFAULTS.hooks);
-  fillDatalist(els.useCaseSuggestions, DEFAULTS.useCases);
-  fillDatalist(els.trendSuggestions, DEFAULTS.trends);
-
-  els.angleInput.value = state.selectedAngle;
-  els.hookInput.value = state.selectedHook;
-  els.useCaseInput.value = state.selectedUseCase;
-  els.platformTrendInput.value = state.selectedTrend;
-  els.ctaInput.value = state.brand.cta;
-  els.customCopyInput.value = state.customCopy;
-  els.notesInput.value = state.competitorNotes;
-  els.brand1.value = state.brand.color1;
-  els.brand2.value = state.brand.color2;
-  els.brand3.value = state.brand.color3;
-
-  if (!Array.isArray(state.generatedAds) || state.generatedAds.length !== 5) {
-    state.generatedAds = generateAdSet();
-  }
-}
-
-function bindEvents() {
-  ['angleInput','hookInput','useCaseInput','platformTrendInput'].forEach(key => {
-    els[key].addEventListener('input', refreshInsightsOnly);
-    els[key].addEventListener('change', refreshInsightsOnly);
-  });
-  els.ctaInput.addEventListener('input', () => { readFormIntoState(); renderAds(); renderPromptGrid(); });
-  els.customCopyInput.addEventListener('input', refreshInsightsOnly);
-  els.notesInput.addEventListener('input', refreshInsightsOnly);
-  [els.brand1, els.brand2, els.brand3].forEach(input => input.addEventListener('input', () => { readFormIntoState(); syncCss(); renderAds(); }));
-
-  els.generateAdsBtn.addEventListener('click', handleGenerateAds);
-  els.generateAdsTopBtn.addEventListener('click', handleGenerateAds);
-  els.generateInsightsBtn.addEventListener('click', refreshInsightsOnly);
-  els.saveStateBtn.addEventListener('click', saveState);
-  els.clearSavedBtn.addEventListener('click', clearSaved);
-  els.loadSeedDataBtn.addEventListener('click', loadSeedData);
-  els.downloadJsonBtn.addEventListener('click', exportJson);
-  els.downloadHtmlBtn.addEventListener('click', exportHtml);
-}
-
-function readFormIntoState() {
-  state.selectedAngle = (els.angleInput.value || '').trim();
-  state.selectedHook = (els.hookInput.value || '').trim();
-  state.selectedUseCase = (els.useCaseInput.value || '').trim();
-  state.selectedTrend = (els.platformTrendInput.value || '').trim();
-  state.customCopy = els.customCopyInput.value || '';
-  state.competitorNotes = els.notesInput.value || '';
-  state.brand.cta = (els.ctaInput.value || 'Search Now').trim() || 'Search Now';
-  state.brand.color1 = els.brand1.value || state.brand.color1;
-  state.brand.color2 = els.brand2.value || state.brand.color2;
-  state.brand.color3 = els.brand3.value || state.brand.color3;
-}
-
-function renderAll() {
-  syncCss();
-  renderCompetitors();
+  cache();
+  fillSelect(els.angleSelect, DATA.angles, state.angle);
+  fillSelect(els.hookSelect, DATA.hooks, state.hook);
+  fillSelect(els.useCaseSelect, DATA.useCases, state.useCase);
+  fillSelect(els.trendSelect, DATA.trends, state.trend);
+  fillSelect(els.ctaSelect, DATA.ctas, state.cta);
+  fillSelect(els.competitorSelect, DATA.competitors.map(c => c.name), 'TruthFinder');
+  bind();
+  renderCompetitorCards();
+  renderSamples();
   renderInsights();
-  renderIdeas();
-  renderTrends();
-  renderAds();
-  renderPromptGrid();
+  state.generatedAds = generateAds();
+  renderGeneratedAds();
 }
 
-function syncCss() {
-  document.documentElement.style.setProperty('--brand-1', state.brand.color1);
-  document.documentElement.style.setProperty('--brand-2', state.brand.color2);
-  document.documentElement.style.setProperty('--brand-3', state.brand.color3);
+function cache() {
+  [
+    'angleSelect','hookSelect','useCaseSelect','trendSelect','ctaSelect','competitorSelect','copyInput','notesInput',
+    'generateBtn','generateTopBtn','refreshBtn','resetBtn','loadDefaultsBtn','statusText',
+    'signalList','opportunityList','visualList','competitorGrid','sampleGrid','adsGrid'
+  ].forEach(id => els[id] = document.getElementById(id));
 }
 
-function renderCompetitors() {
-  els.competitorList.innerHTML = DEFAULTS.competitors.map(c => `
-    <div class="competitor-card ${c.id === state.selectedCompetitorId ? 'active' : ''}">
-      <div class="competitor-top">
+function bind() {
+  ['angleSelect','hookSelect','useCaseSelect','trendSelect','ctaSelect','competitorSelect','copyInput','notesInput'].forEach(id => {
+    els[id].addEventListener('change', refreshStateAndInsights);
+    els[id].addEventListener('input', refreshStateAndInsights);
+  });
+  els.generateBtn.addEventListener('click', onGenerate);
+  els.generateTopBtn.addEventListener('click', onGenerate);
+  els.refreshBtn.addEventListener('click', refreshStateAndInsights);
+  els.resetBtn.addEventListener('click', resetForm);
+  els.loadDefaultsBtn.addEventListener('click', loadDefaults);
+}
+
+function fillSelect(el, items, selected) {
+  el.innerHTML = items.map(v => `<option value="${escAttr(v)}" ${v === selected ? 'selected' : ''}>${esc(v)}</option>`).join('');
+}
+
+function refreshStateAndInsights() {
+  readForm();
+  renderInsights();
+}
+
+function readForm() {
+  state.angle = els.angleSelect.value;
+  state.hook = els.hookSelect.value;
+  state.useCase = els.useCaseSelect.value;
+  state.trend = els.trendSelect.value;
+  state.cta = els.ctaSelect.value;
+  state.competitorId = DATA.competitors.find(c => c.name === els.competitorSelect.value)?.id || 'truthfinder';
+  state.copyGuidance = els.copyInput.value.trim();
+  state.notes = els.notesInput.value.trim();
+}
+
+function renderCompetitorCards() {
+  els.competitorGrid.innerHTML = DATA.competitors.map(c => `
+    <div class="card ${c.id === state.competitorId ? 'active' : ''}">
+      <div class="card-top">
         <div>
-          <div style="font-size:18px;font-weight:800;">${escapeHtml(c.name)}</div>
-          <div class="muted">${escapeHtml(c.focus)}</div>
+          <div style="font-size:18px;font-weight:800;">${esc(c.name)}</div>
+          <div class="status">${esc(c.patterns.join(' • '))}</div>
         </div>
-        <span class="mini-stat">${c.id === 'truthfinder' ? 'brand ref' : 'compare'}</span>
+        <span class="pill">reference</span>
       </div>
-      <div class="pill-row">
-        ${c.patterns.map(v => `<span class="pill">${escapeHtml(v)}</span>`).join('')}
-        ${c.formats.map(v => `<span class="pill">${escapeHtml(v)}</span>`).join('')}
-      </div>
-      <div class="small-actions">
-        <button class="btn-secondary" data-comp="${c.id}">${c.id === 'truthfinder' ? 'Use TruthFinder ref' : 'Use comparison ref'}</button>
-        <a class="btn-secondary" href="${escapeAttr(c.metaUrl)}" target="_blank" rel="noopener noreferrer">Open Meta library</a>
+      <div class="pill-row">${c.formats.map(v => `<span class="pill">${esc(v)}</span>`).join('')}</div>
+      <div class="small-actions" style="margin-top:12px;">
+        <a class="btn btn-secondary" href="${escAttr(c.metaUrl)}" target="_blank" rel="noopener noreferrer">Open Meta Ad Library</a>
       </div>
     </div>
   `).join('');
+}
 
-  els.competitorList.querySelectorAll('[data-comp]').forEach(btn => {
-    btn.addEventListener('click', () => {
-      state.selectedCompetitorId = btn.getAttribute('data-comp');
-      renderCompetitors();
-      renderInsights();
+function renderSamples() {
+  els.sampleGrid.innerHTML = DATA.sampleCreatives.map((item, idx) => {
+    const comp = DATA.competitors.find(c => c.id === item.competitorId);
+    return renderAdCard({
+      id: `sample-${idx}`,
+      sourceLabel: `${comp.name} reference sample`,
+      kicker: item.kicker,
+      headline: item.headline,
+      body: item.body,
+      cta: item.cta,
+      meta: comp.patterns.slice(0,2).join(' • '),
+      editable: false
     });
-  });
+  }).join('');
 }
 
 function renderInsights() {
-  readFormIntoState();
-  const truthfinder = DEFAULTS.competitors.find(c => c.id === 'truthfinder');
-  const primary = DEFAULTS.competitors.find(c => c.id === state.selectedCompetitorId) || truthfinder;
-  const notes = state.competitorNotes.trim();
-  const list = [
-    `TruthFinder is the primary brand reference. Current saved signals: ${joinList(truthfinder.patterns)} and ${joinList(truthfinder.formats)}.`,
-    `Typed brief: angle = "${state.selectedAngle}", hook = "${state.selectedHook}", use case = "${state.selectedUseCase}", visual trend = "${state.selectedTrend}".`,
-    `${primary.name} gives the category comparison frame, but all generated ads stay in a TruthFinder-branded schematic.`,
-    `Best opportunity: make ${state.selectedUseCase.toLowerCase()} feel immediately relevant while keeping the visual treatment cleaner and more premium than the typical category ad.`
+  readForm();
+  const comp = DATA.competitors.find(c => c.id === state.competitorId) || DATA.competitors[0];
+
+  const signals = [
+    `${comp.name} reference points: ${comp.patterns.join(', ')}.`,
+    `TruthFinder opportunity: keep the utility obvious but present it in a cleaner premium dark system.`,
+    state.notes ? `Meta notes captured: ${state.notes}` : `No manual Meta notes entered yet.`
   ];
-  if (notes) list.push(`Observed Meta notes: ${notes.slice(0, 260)}${notes.length > 260 ? '…' : ''}`);
 
-  els.insightsStatus.textContent = 'Generator ready. Clicking Generate will create 5 new display creative variations.';
-  els.insightsList.innerHTML = list.map(item => `<div class="insight-item">${escapeHtml(item)}</div>`).join('');
-}
-
-function renderIdeas() {
-  readFormIntoState();
-  const useCase = state.selectedUseCase || 'general people-search';
-  const angle = state.selectedAngle || 'trust-led angle';
-  const hook = state.selectedHook || 'Search first';
-  const ideas = [
-    { title: `Primary route: ${useCase}`, why: `Directly tied to your typed brief and ${angle.toLowerCase()}.`, hooks: [hook, `Proof for ${useCase}`, 'TruthFinder utility first'] },
-    { title: 'Marketplace meetup confidence', why: 'Pushes local transaction trust and in-person caution.', hooks: ['Check before you meet', 'Verify first', 'Know more first'] },
-    { title: 'Modern dating due diligence', why: 'Positions TruthFinder as a practical step before meeting.', hooks: ['Before date night, know more', 'Trust your gut. Then verify.', 'More context first'] },
-    { title: 'Unknown caller clarity', why: 'Converts on a familiar problem with strong urgency.', hooks: ['That number again?', 'Search the number first', 'Unknown caller, known answer'] }
+  const opps = [
+    `Selected angle: ${state.angle}.`,
+    `Selected hook: ${state.hook}`,
+    `Best use-case framing: ${state.useCase.toLowerCase()} with a faster feed-stop opening line.`
   ];
-  els.ideaGrid.innerHTML = ideas.map(idea => `
-    <div class="idea-card">
-      <div style="font-size:17px;font-weight:800;margin-bottom:6px;">${escapeHtml(idea.title)}</div>
-      <div class="muted">${escapeHtml(idea.why)}</div>
-      <div class="pill-row">${idea.hooks.map(h => `<span class="pill">${escapeHtml(h)}</span>`).join('')}</div>
-    </div>
-  `).join('');
+
+  const visuals = [
+    `Visual trend selected: ${state.trend}.`,
+    `CTA selected: ${state.cta}.`,
+    state.copyGuidance ? `Copy guidance: ${state.copyGuidance}` : `No extra copy guidance entered yet.`
+  ];
+
+  renderList(els.signalList, signals);
+  renderList(els.opportunityList, opps);
+  renderList(els.visualList, visuals);
 }
 
-function renderTrends() {
-  readFormIntoState();
-  const typed = normalize(state.selectedTrend);
-  const cards = DEFAULTS.trends.map(name => `
-    <div class="trend-card">
-      <div class="competitor-top">
-        <div style="font-size:17px;font-weight:800;">${escapeHtml(name)}</div>
-        <span class="mini-stat">${normalize(name) === typed ? 'selected' : 'available'}</span>
-      </div>
-      <div class="muted">${escapeHtml(buildTrendDescription(name))}</div>
-    </div>
-  `).join('');
-  els.trendGrid.innerHTML = cards;
+function renderList(el, items) {
+  el.innerHTML = items.map(v => `<div class="list-item">${esc(v)}</div>`).join('');
 }
 
-function handleGenerateAds() {
-  readFormIntoState();
-  const missing = [
-    ['angle', state.selectedAngle],
-    ['hook', state.selectedHook],
-    ['use case', state.selectedUseCase],
-    ['visual trend', state.selectedTrend]
-  ].filter(([,v]) => !String(v || '').trim()).map(([k]) => k);
-
-  if (missing.length) {
-    els.insightsStatus.textContent = `Fill in ${joinList(missing)} and try again.`;
-    return;
-  }
-
-  state.generatedAds = generateAdSet();
-  renderAds();
-  renderPromptGrid();
-  renderInsights();
-  els.insightsStatus.textContent = 'Generated 5 new TruthFinder display creatives.';
-  saveState(false);
+function onGenerate() {
+  readForm();
+  state.generatedAds = generateAds();
+  renderGeneratedAds();
+  els.statusText.textContent = 'Generated 5 new TruthFinder display creatives.';
 }
 
-function generateAdSet() {
-  const primary = DEFAULTS.competitors.find(c => c.id === state.selectedCompetitorId) || DEFAULTS.competitors[0];
-  const styles = ['problem-solution', 'fear-relief', 'utility-first', 'social-proof', 'bold-alert'];
-  return styles.map((style, idx) => {
-    const headline = buildHeadline(style, idx);
-    const body = buildBody(style, primary);
-    const kicker = buildKicker(style, idx);
-    const visualTags = buildVisualTags(style, idx);
+function generateAds() {
+  const comp = DATA.competitors.find(c => c.id === state.competitorId) || DATA.competitors[0];
+  const variants = [
+    'problem-solution',
+    'bold-utility',
+    'trust-stack',
+    'alert-frame',
+    'proof-card'
+  ];
+
+  return variants.map((variant, i) => {
+    const headline = headlineFor(variant, i);
+    const body = bodyFor(variant, comp, i);
+    const kicker = kickerFor(variant, i);
+    const meta = `${state.trend} • ${comp.name} reference • ${variant}`;
     return {
-      id: `ad-${Date.now()}-${idx}`,
-      name: `Concept ${idx + 1}`,
-      style,
+      id: `gen-${Date.now()}-${i}`,
+      sourceLabel: 'Generated TruthFinder creative',
       kicker,
       headline,
       body,
-      cta: state.brand.cta,
-      socialProof: socialProofLine(idx),
-      visualTags,
-      prompt: buildPrompt(style, headline, body, kicker, visualTags, primary)
+      cta: state.cta,
+      meta,
+      editable: true
     };
   });
 }
 
-function buildHeadline(style, idx) {
-  const a = state.selectedAngle;
-  const h = state.selectedHook;
-  const u = state.selectedUseCase;
-  const options = {
-    'problem-solution': [h, `Before ${shortUseCase(u)},\nknow more.`, `A smarter move for\n${shortUseCase(u)}.`],
-    'fear-relief': [`When something feels off,\nsearch first.`, `A little context\nchanges everything.`, `More confidence for\n${shortUseCase(u)}.`],
-    'utility-first': [`Search names, numbers,\nand addresses.`, `TruthFinder for\n${shortUseCase(u)}.`, `${capitalize(shortUseCase(u))}\nstarts with context.`],
-    'social-proof': [`${capitalize(shortUseCase(u))},\nbut smarter.`, `The extra step\nworth taking.`, `${h.replace(/\.$/, '')}\nNow make it visual.`],
-    'bold-alert': [`Pause. Search.\nThen decide.`, `Before you trust,\nknow more.`, `${capitalize(a)}\nstarts here.`]
-  };
-  const list = options[style] || [h, a, u];
-  return list[idx % list.length];
-}
-
-function buildBody(style, primary) {
-  const extra = state.customCopy.trim() ? ` ${sentence(state.customCopy.trim())}` : '';
+function headlineFor(variant, i) {
+  const shortUse = shortUseCase(state.useCase);
   const map = {
-    'problem-solution': `Use TruthFinder before ${state.selectedUseCase.toLowerCase()} moments turn into bad decisions.${extra}`,
-    'fear-relief': `Built around ${state.selectedAngle.toLowerCase()} so the ad feels urgent, useful, and practical without going off-brand.${extra}`,
-    'utility-first': `A cleaner, more premium utility-led message than the category usually shows on Meta.${extra}`,
-    'social-proof': `Leverages TruthFinder's branded schematic while pushing beyond ${primary.name}'s current creative patterns.${extra}`,
-    'bold-alert': `Fast, scroll-stopping creative for ${state.selectedUseCase.toLowerCase()} situations where people want clarity right now.${extra}`
+    'problem-solution': [
+      `${state.hook}\nMore context first.`,
+      `Before ${shortUse},\nknow more.`,
+      `A smarter step before\n${shortUse}.`
+    ],
+    'bold-utility': [
+      `Search names,\nnumbers, and more.`,
+      `${capitalize(shortUse)}\nstarts with context.`,
+      `Search first.\nDecide better.`
+    ],
+    'trust-stack': [
+      `Know who you’re\ndealing with.`,
+      `More confidence for\n${shortUse}.`,
+      `Get more context\nbefore you move.`
+    ],
+    'alert-frame': [
+      `Pause. Search.\nThen decide.`,
+      `Before you trust,\nknow more.`,
+      `${capitalize(shortUse)}\ncan change quickly.`
+    ],
+    'proof-card': [
+      `A quick search beats\nregret later.`,
+      `${state.hook.replace(/\.$/, '')}\nNow make it visual.`,
+      `More clarity for\n${shortUse}.`
+    ]
   };
-  return map[style];
+  return map[variant][i % 3];
 }
 
-function buildKicker(style, idx) {
-  const map = {
-    'problem-solution': state.selectedUseCase,
-    'fear-relief': 'Confidence first',
-    'utility-first': 'TruthFinder search',
-    'social-proof': state.selectedTrend,
-    'bold-alert': `Variation ${idx + 1}`
-  };
-  return map[style] || state.selectedUseCase;
+function bodyFor(variant, comp, i) {
+  const guidance = state.copyGuidance ? ` ${sentence(state.copyGuidance)}` : '';
+  const use = state.useCase.toLowerCase();
+  const base = {
+    'problem-solution': `Use TruthFinder before ${use} moments turn into bad decisions.`,
+    'bold-utility': `A cleaner, more premium utility-led message than most category ads currently show.`,
+    'trust-stack': `Built around ${state.angle.toLowerCase()} so the creative feels useful, confident, and practical.`,
+    'alert-frame': `Fast, scroll-stopping static creative for situations where people want clarity right now.`,
+    'proof-card': `Keeps the TruthFinder brand premium while borrowing broad category learning from ${comp.name}.`
+  }[variant];
+  return `${base}${guidance}`;
 }
 
-function buildVisualTags(style, idx) {
-  const tags = {
-    'problem-solution': [state.selectedTrend, 'split hierarchy', 'result chip'],
-    'fear-relief': [state.selectedTrend, 'dark premium gradient', 'signal glow'],
-    'utility-first': [state.selectedTrend, 'search UI', 'clean card'],
-    'social-proof': [state.selectedTrend, 'proof module', 'comment stack'],
-    'bold-alert': [state.selectedTrend, 'alert stripe', 'oversized CTA']
-  };
-  return [...(tags[style] || [state.selectedTrend]), `variant ${idx + 1}`];
+function kickerFor(variant, i) {
+  return {
+    'problem-solution': state.useCase,
+    'bold-utility': 'TruthFinder search',
+    'trust-stack': state.angle,
+    'alert-frame': `Variation ${i + 1}`,
+    'proof-card': state.trend
+  }[variant];
 }
 
-function renderAds() {
-  if (!Array.isArray(state.generatedAds) || !state.generatedAds.length) {
-    els.adsGrid.innerHTML = '<div class="empty-state">No ads generated yet.</div>';
+function renderGeneratedAds() {
+  if (!state.generatedAds.length) {
+    els.adsGrid.innerHTML = '<div class="empty">No ads generated yet.</div>';
     return;
   }
 
-  els.adsGrid.innerHTML = state.generatedAds.map(ad => `
+  els.adsGrid.innerHTML = state.generatedAds.map(ad => renderAdCard(ad)).join('');
+  bindGeneratedEditors();
+}
+
+function renderAdCard(ad) {
+  return `
     <div class="ad-card">
-      <div class="ad-preview" style="background:${buildBackground(ad.style)};">
-        <div class="ad-noise"></div>
-        <div class="ad-orb one"></div>
-        <div class="ad-orb two"></div>
-        <div class="tf-copy">
-          <div class="tf-brand">
-            <div class="tf-mark">TF</div>
+      <div class="ad-preview">
+        <div class="ad-layer">
+          <div class="brand-lock">
+            <div class="brand-mark">TF</div>
             <div>
               <div style="font-weight:800;">TruthFinder</div>
-              <div style="font-size:12px;color:rgba(232,241,248,.72);">Inspired by TruthFinder Meta reference</div>
+              <div style="font-size:12px;color:rgba(237,243,248,.72);">${esc(ad.sourceLabel)}</div>
             </div>
           </div>
-          <div class="ad-kicker">${escapeHtml(ad.kicker)}</div>
-          <div class="ad-headline">${escapeHtml(ad.headline)}</div>
-          <div class="ad-body">${escapeHtml(ad.body)}</div>
+          <div class="ad-kicker">${esc(ad.kicker)}</div>
+          <div class="ad-headline">${esc(ad.headline)}</div>
+          <div class="ad-body">${esc(ad.body)}</div>
         </div>
-        <div class="ad-bottom">
-          <div class="social-proof">
-            <div class="big">${escapeHtml(ad.socialProof)}</div>
-            <div class="small">${escapeHtml(ad.visualTags.slice(0,3).join(' • '))}</div>
+        <div class="ad-layer ad-bottom">
+          <div class="ad-meta">
+            <div>${esc(ad.meta)}</div>
           </div>
-          <div class="ad-cta">${escapeHtml(ad.cta)}</div>
+          <div class="ad-cta">${esc(ad.cta)}</div>
         </div>
       </div>
-      <div class="ad-editor">
-        <div class="field" style="margin-bottom:0;"><label>Headline</label><textarea data-ad-field="headline" data-ad-id="${ad.id}">${escapeHtml(ad.headline)}</textarea></div>
-        <div class="field" style="margin-bottom:0;"><label>Body copy</label><textarea data-ad-field="body" data-ad-id="${ad.id}">${escapeHtml(ad.body)}</textarea></div>
-        <div class="field" style="margin-bottom:0;"><label>Kicker</label><input data-ad-field="kicker" data-ad-id="${ad.id}" value="${escapeAttr(ad.kicker)}" /></div>
-        <div class="field" style="margin-bottom:0;"><label>CTA</label><input data-ad-field="cta" data-ad-id="${ad.id}" value="${escapeAttr(ad.cta)}" /></div>
-        <div class="ad-editor-actions">
-          <div class="muted">${escapeHtml(ad.name)}</div>
-          <button class="btn-secondary" data-copy-prompt="${ad.id}">Copy designer prompt</button>
-        </div>
-      </div>
+      ${ad.editable ? `
+        <div class="ad-editor">
+          <div class="field" style="margin-bottom:0;"><label>Headline</label><textarea data-id="${escAttr(ad.id)}" data-field="headline">${esc(ad.headline)}</textarea></div>
+          <div class="field" style="margin-bottom:0;"><label>Body</label><textarea data-id="${escAttr(ad.id)}" data-field="body">${esc(ad.body)}</textarea></div>
+          <div class="row-2">
+            <div class="field" style="margin-bottom:0;"><label>Kicker</label><input data-id="${escAttr(ad.id)}" data-field="kicker" value="${escAttr(ad.kicker)}"></div>
+            <div class="field" style="margin-bottom:0;"><label>CTA</label><input data-id="${escAttr(ad.id)}" data-field="cta" value="${escAttr(ad.cta)}"></div>
+          </div>
+        </div>` : ''}
     </div>
-  `).join('');
+  `;
+}
 
-  els.adsGrid.querySelectorAll('[data-ad-field]').forEach(el => {
-    el.addEventListener('input', () => {
-      const ad = state.generatedAds.find(item => item.id === el.getAttribute('data-ad-id'));
+function bindGeneratedEditors() {
+  els.adsGrid.querySelectorAll('[data-id][data-field]').forEach(input => {
+    input.addEventListener('input', e => {
+      const id = e.target.getAttribute('data-id');
+      const field = e.target.getAttribute('data-field');
+      const ad = state.generatedAds.find(x => x.id === id);
       if (!ad) return;
-      ad[el.getAttribute('data-ad-field')] = el.value;
-      renderAds();
-      renderPromptGrid();
-    });
-  });
-
-  els.adsGrid.querySelectorAll('[data-copy-prompt]').forEach(btn => {
-    btn.addEventListener('click', async () => {
-      const ad = state.generatedAds.find(item => item.id === btn.getAttribute('data-copy-prompt'));
-      if (!ad) return;
-      try { await navigator.clipboard.writeText(ad.prompt); btn.textContent = 'Prompt copied'; }
-      catch { btn.textContent = 'Copy failed'; }
-      setTimeout(() => btn.textContent = 'Copy designer prompt', 1000);
+      ad[field] = e.target.value;
+      renderGeneratedAds();
     });
   });
 }
 
-function renderPromptGrid() {
-  els.promptGrid.innerHTML = state.generatedAds.map(ad => `
-    <div class="prompt-card">
-      <div class="competitor-top">
-        <div style="font-size:17px;font-weight:800;">${escapeHtml(ad.name)}</div>
-        <span class="mini-stat">${escapeHtml(ad.style)}</span>
-      </div>
-      <div class="muted" style="white-space:pre-line;">${escapeHtml(ad.prompt)}</div>
-    </div>
-  `).join('');
-}
-
-function buildPrompt(style, headline, body, kicker, visualTags, primary) {
-  return [
-    'Create a premium paid-social static ad for TruthFinder.',
-    `Angle: ${state.selectedAngle}.`,
-    `Hook: ${state.selectedHook}.`,
-    `Use case: ${state.selectedUseCase}.`,
-    `Visual trend: ${state.selectedTrend}.`,
-    `Competitive reference: ${primary.name}.`,
-    `Kicker: ${kicker}.`,
-    `Headline: ${headline.replace(/\n/g, ' ')}.`,
-    `Body copy: ${body}.`,
-    `Visual details: ${visualTags.join(', ')}.`,
-    `Brand treatment: dark premium background, TruthFinder teal-to-aqua accents, mobile-first feed composition, CTA ${state.brand.cta}.`
-  ].join('\n');
-}
-
-function buildBackground(style) {
-  const d = state.brand.color3, c1 = state.brand.color1, c2 = state.brand.color2;
-  const map = {
-    'problem-solution': `linear-gradient(145deg, ${d}, ${mix(d,c1,.25)})`,
-    'fear-relief': `linear-gradient(145deg, ${mix(d,'#000000',.12)}, ${mix(d,c2,.18)})`,
-    'utility-first': `linear-gradient(145deg, ${mix(d,c2,.08)}, ${mix(d,c1,.22)})`,
-    'social-proof': `linear-gradient(145deg, ${d}, ${mix(c1,c2,.5)})`,
-    'bold-alert': `linear-gradient(145deg, ${mix(d,c1,.32)}, ${mix(d,c2,.12)})`
-  };
-  return map[style] || map['utility-first'];
-}
-
-function refreshInsightsOnly() {
-  readFormIntoState();
+function resetForm() {
+  state.angle = DATA.angles[0];
+  state.hook = DATA.hooks[0];
+  state.useCase = DATA.useCases[0];
+  state.trend = DATA.trends[0];
+  state.cta = DATA.ctas[0];
+  state.competitorId = 'truthfinder';
+  state.copyGuidance = '';
+  state.notes = '';
+  fillSelect(els.angleSelect, DATA.angles, state.angle);
+  fillSelect(els.hookSelect, DATA.hooks, state.hook);
+  fillSelect(els.useCaseSelect, DATA.useCases, state.useCase);
+  fillSelect(els.trendSelect, DATA.trends, state.trend);
+  fillSelect(els.ctaSelect, DATA.ctas, state.cta);
+  fillSelect(els.competitorSelect, DATA.competitors.map(c => c.name), 'TruthFinder');
+  els.copyInput.value = '';
+  els.notesInput.value = '';
   renderInsights();
-  renderIdeas();
-  renderTrends();
+  state.generatedAds = generateAds();
+  renderGeneratedAds();
+  els.statusText.textContent = 'Reset complete. 5 ads regenerated from the default brief.';
 }
 
-function saveState(withMessage = true) {
-  localStorage.setItem('truthfinderCreativeStudioState', JSON.stringify(state));
-  if (withMessage) els.insightsStatus.textContent = 'Saved locally.';
+function loadDefaults() {
+  state.angle = 'Facebook Marketplace trust check';
+  state.hook = 'Before you buy, check first.';
+  state.useCase = 'Seller or buyer verification';
+  state.trend = 'Dark safety dashboard';
+  state.cta = 'Search Now';
+  state.competitorId = 'beenverified';
+  state.copyGuidance = 'Keep the tone premium, concise, and practical.';
+  state.notes = 'BeenVerified often leans utility-first. TruthFinder should feel cleaner and more premium.';
+  fillSelect(els.angleSelect, DATA.angles, state.angle);
+  fillSelect(els.hookSelect, DATA.hooks, state.hook);
+  fillSelect(els.useCaseSelect, DATA.useCases, state.useCase);
+  fillSelect(els.trendSelect, DATA.trends, state.trend);
+  fillSelect(els.ctaSelect, DATA.ctas, state.cta);
+  fillSelect(els.competitorSelect, DATA.competitors.map(c => c.name), 'BeenVerified');
+  els.copyInput.value = state.copyGuidance;
+  els.notesInput.value = state.notes;
+  renderInsights();
+  state.generatedAds = generateAds();
+  renderGeneratedAds();
+  els.statusText.textContent = 'Default Marketplace brief loaded and 5 ads generated.';
 }
 
-function clearSaved() {
-  localStorage.removeItem('truthfinderCreativeStudioState');
-  state.generatedAds = generateAdSet();
-  renderAll();
-  els.insightsStatus.textContent = 'Saved local data cleared.';
+function shortUseCase(v) {
+  return String(v || 'this moment').replace(/facebook /ig, '').replace(/seller or buyer /ig, '').toLowerCase();
 }
-
-function loadSeedData() {
-  state.selectedAngle = DEFAULTS.angles[1];
-  state.selectedHook = DEFAULTS.hooks[2];
-  state.selectedUseCase = DEFAULTS.useCases[1];
-  state.selectedTrend = DEFAULTS.trends[1];
-  state.selectedCompetitorId = 'truthfinder';
-  state.customCopy = 'Make it feel premium, urgent, and clearly built for Facebook Marketplace meetups.';
-  state.competitorNotes = 'TruthFinder can win by staying cleaner and more premium than the category while keeping the utility obvious.';
-  state.brand.cta = 'Search Now';
-  els.angleInput.value = state.selectedAngle;
-  els.hookInput.value = state.selectedHook;
-  els.useCaseInput.value = state.selectedUseCase;
-  els.platformTrendInput.value = state.selectedTrend;
-  els.customCopyInput.value = state.customCopy;
-  els.notesInput.value = state.competitorNotes;
-  els.ctaInput.value = state.brand.cta;
-  handleGenerateAds();
-}
-
-function exportJson() {
-  const payload = {
-    exportedAt: new Date().toISOString(),
-    brief: {
-      angle: state.selectedAngle,
-      hook: state.selectedHook,
-      useCase: state.selectedUseCase,
-      trend: state.selectedTrend
-    },
-    competitorReference: state.selectedCompetitorId,
-    ads: state.generatedAds
-  };
-  download('truthfinder-ad-set.json', JSON.stringify(payload, null, 2), 'application/json');
-}
-
-function exportHtml() {
-  const html = `<!doctype html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>TruthFinder Ad Board</title><style>body{font-family:Inter,Arial,sans-serif;background:#08131d;color:#eef5fb;padding:24px}.grid{display:grid;grid-template-columns:repeat(2,minmax(280px,1fr));gap:18px}.card{border:1px solid rgba(255,255,255,.08);border-radius:18px;overflow:hidden;background:rgba(255,255,255,.03)}.preview{aspect-ratio:4/5;padding:22px;display:flex;flex-direction:column;justify-content:space-between;background:linear-gradient(145deg,${state.brand.color3},${state.brand.color1})}.headline{font-size:30px;font-weight:800;line-height:1.03;white-space:pre-line}.body{font-size:14px;line-height:1.45;max-width:84%}.kicker,.cta{display:inline-block;padding:8px 12px;border-radius:999px}.kicker{background:rgba(255,255,255,.1)}.cta{background:linear-gradient(135deg,${state.brand.color1},${state.brand.color2});color:#08221f;font-weight:800}.meta{padding:14px;font-size:13px;color:#c6d6e4}</style></head><body><h1>TruthFinder Ad Board</h1><div class="grid">${state.generatedAds.map(ad=>`<div class="card"><div class="preview"><div><div style="font-weight:800;margin-bottom:12px">TruthFinder</div><div class="kicker">${escapeHtml(ad.kicker)}</div><div class="headline">${escapeHtml(ad.headline)}</div><div class="body">${escapeHtml(ad.body)}</div></div><div style="display:flex;justify-content:space-between;align-items:flex-end;gap:12px"><div>${escapeHtml(ad.socialProof)}</div><div class="cta">${escapeHtml(ad.cta)}</div></div></div><div class="meta">${escapeHtml(ad.prompt)}</div></div>`).join('')}</div></body></html>`;
-  download('truthfinder-ad-board.html', html, 'text/html');
-}
-
-function fillDatalist(el, items) { el.innerHTML = items.map(v => `<option value="${escapeAttr(v)}"></option>`).join(''); }
-function buildTrendDescription(name) { return `${name} adapted into a TruthFinder-branded static that feels premium, mobile-first, and clearer than the average category ad.`; }
-function shortUseCase(v) { return String(v || 'this moment').replace(/facebook /i,'').replace(/teen safety \/ /i,'').toLowerCase(); }
-function socialProofLine(i) { return ['Built for Meta feed speed.','Cleaner than the category.','TruthFinder-branded utility.','Sharper hook, lower clutter.','Mobile-first conversion frame.'][i] || 'Meta-ready static.'; }
-function normalize(v) { return String(v || '').trim().toLowerCase(); }
-function capitalize(v) { v = String(v || ''); return v.charAt(0).toUpperCase() + v.slice(1); }
-function sentence(v) { v = String(v || ''); return v ? capitalize(v.replace(/[.\s]+$/,'')) + '.' : ''; }
-function joinList(arr) { return arr.length < 2 ? (arr[0] || '') : arr.length === 2 ? `${arr[0]} and ${arr[1]}` : `${arr.slice(0,-1).join(', ')}, and ${arr[arr.length-1]}`; }
-function safeParse(v) { try { return JSON.parse(v); } catch { return null; } }
-function mix(a,b,w){const A=hexToRgb(a),B=hexToRgb(b);return rgbToHex(Math.round(A.r+(B.r-A.r)*w),Math.round(A.g+(B.g-A.g)*w),Math.round(A.b+(B.b-A.b)*w));}
-function hexToRgb(h){h=h.replace('#','');const n=parseInt(h,16);return{r:(n>>16)&255,g:(n>>8)&255,b:n&255};}
-function rgbToHex(r,g,b){return '#' + [r,g,b].map(v=>v.toString(16).padStart(2,'0')).join('');}
-function download(name, content, type){const blob=new Blob([content],{type});const url=URL.createObjectURL(blob);const a=document.createElement('a');a.href=url;a.download=name;a.click();URL.revokeObjectURL(url);}
-function escapeHtml(v=''){return String(v).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#39;');}
-function escapeAttr(v=''){return escapeHtml(v).replace(/`/g,'&#96;');}
+function sentence(v) { return v ? capitalize(String(v).replace(/[.\s]+$/,'')) + '.' : ''; }
+function capitalize(v) { return v ? v.charAt(0).toUpperCase() + v.slice(1) : ''; }
+function esc(v='') { return String(v).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#39;'); }
+function escAttr(v='') { return esc(v).replace(/`/g,'&#96;'); }
