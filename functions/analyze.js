@@ -170,7 +170,12 @@ function cacheElements() {
 }
 
 function hydrateState() {
-  const saved = localStorage.getItem("truthfinderCreativeStudioState");
+  let saved = null;
+  try {
+    saved = localStorage.getItem("truthfinderCreativeStudioState");
+  } catch (error) {
+    console.warn("Local state unavailable", error);
+  }
   const parsed = saved ? safelyParseJson(saved) : null;
 
   state.competitors = clone(MARKET_DEFAULTS.competitors);
@@ -203,7 +208,7 @@ function hydrateState() {
   els.brand2.value = state.brand.color2 || "#5eead4";
   els.brand3.value = state.brand.color3 || "#0f1720";
 
-  if (!state.generatedAds?.length) {
+  if (!Array.isArray(state.generatedAds) || !state.generatedAds.length) {
     state.generatedAds = generateAdSet();
   }
 }
@@ -257,6 +262,20 @@ function bindEvents() {
   els.loadSeedDataBtn.addEventListener("click", loadSeedData);
   els.downloadJsonBtn.addEventListener("click", exportAdSetJson);
   els.downloadHtmlBtn.addEventListener("click", exportAdBoardHtml);
+}
+
+
+function readFormIntoState() {
+  state.selectedAngle = (els.angleInput?.value || "").trim();
+  state.selectedHook = (els.hookInput?.value || "").trim();
+  state.selectedUseCase = (els.useCaseInput?.value || "").trim();
+  state.selectedTrend = (els.platformTrendInput?.value || "").trim();
+  state.brand.cta = (els.ctaInput?.value || "Search Now").trim() || "Search Now";
+  state.customCopy = els.customCopyInput?.value || "";
+  state.competitorNotes = els.notesInput?.value || "";
+  state.brand.color1 = els.brand1?.value || state.brand.color1;
+  state.brand.color2 = els.brand2?.value || state.brand.color2;
+  state.brand.color3 = els.brand3?.value || state.brand.color3;
 }
 
 function bindTextField(input, key) {
@@ -480,6 +499,9 @@ function renderTrendGrid() {
 }
 
 function handleGenerateAds() {
+  readFormIntoState();
+  syncCssVariables();
+
   const missing = [
     [state.selectedAngle, "angle"],
     [state.selectedHook, "hook"],
@@ -489,12 +511,17 @@ function handleGenerateAds() {
 
   if (missing.length) {
     els.insightsStatus.textContent = `Add a ${joinHumanList(missing)} before generating.`;
+    renderAds();
     return;
   }
 
   state.generatedAds = generateAdSet();
+  renderInsights();
+  renderIdeaGrid();
+  renderTrendGrid();
   renderAds();
   renderPromptGrid();
+  saveStateSilently();
   els.insightsStatus.textContent = "Generated 5 new TruthFinder display creatives from your typed brief.";
 }
 
@@ -603,6 +630,11 @@ function buildVisualTags(trend, style, idx) {
 }
 
 function renderAds() {
+  if (!Array.isArray(state.generatedAds) || !state.generatedAds.length) {
+    els.adsGrid.innerHTML = `<div class="prompt-card"><div style="font-size:16px;font-weight:700;margin-bottom:8px;">No ads are currently loaded.</div><div class="muted">Type an angle, hook, use case, and visual trend, then click Generate 5 new ads.</div></div>`;
+    return;
+  }
+
   els.adsGrid.innerHTML = state.generatedAds.map(ad => `
     <div class="ad-card">
       <div class="ad-preview" style="background:${buildAdBackground(ad.style)};">
@@ -774,14 +806,32 @@ function inferTrendElements(trendName = "") {
   return [...new Set(inferred)].slice(0, 6);
 }
 
+
+function saveStateSilently() {
+  try {
+    localStorage.setItem("truthfinderCreativeStudioState", JSON.stringify(state));
+  } catch (error) {
+    console.warn("Save skipped", error);
+  }
+}
+
 function saveState() {
-  localStorage.setItem("truthfinderCreativeStudioState", JSON.stringify(state));
-  els.insightsStatus.textContent = "Saved locally in your browser.";
+  readFormIntoState();
+  try {
+    localStorage.setItem("truthfinderCreativeStudioState", JSON.stringify(state));
+    els.insightsStatus.textContent = "Saved locally in your browser.";
+  } catch (error) {
+    els.insightsStatus.textContent = "Could not save local state in this browser context.";
+  }
 }
 
 function clearSaved() {
-  localStorage.removeItem("truthfinderCreativeStudioState");
-  els.insightsStatus.textContent = "Saved local state cleared.";
+  try {
+    localStorage.removeItem("truthfinderCreativeStudioState");
+    els.insightsStatus.textContent = "Saved local state cleared.";
+  } catch (error) {
+    els.insightsStatus.textContent = "Could not clear local state in this browser context.";
+  }
 }
 
 function loadSeedData() {
