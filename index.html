@@ -6,91 +6,96 @@
   <title>TruthFinder Creative Studio</title>
   <style>
     :root {
-      --bg: #08131d;
-      --panel: #0d1c2b;
-      --panel-2: #12263a;
+      --bg: #0b1016;
+      --panel: #121923;
+      --panel-2: #182230;
       --line: rgba(255,255,255,0.08);
-      --text: #e8f1f8;
-      --muted: #97abbe;
-      --brand-1: #16c1b0;
-      --brand-2: #5eead4;
-      --brand-3: #0f1720;
-      --shadow: 0 18px 50px rgba(0,0,0,.28);
+      --text: #edf3f8;
+      --muted: #9ca9b8;
+      --olive: #5c6b3c;
+      --olive-2: #73874e;
+      --gold: #c8a96e;
+      --gold-2: #e1c48d;
+      --ink: #0f1319;
+      --shadow: 0 16px 42px rgba(0,0,0,.28);
       --radius: 18px;
     }
     * { box-sizing: border-box; }
     body {
       margin: 0;
       font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-      background:
-        radial-gradient(circle at top left, rgba(22,193,176,.12), transparent 30%),
-        radial-gradient(circle at top right, rgba(94,234,212,.08), transparent 25%),
-        var(--bg);
       color: var(--text);
+      background:
+        radial-gradient(circle at top right, rgba(200,169,110,.10), transparent 26%),
+        radial-gradient(circle at top left, rgba(92,107,60,.12), transparent 30%),
+        var(--bg);
     }
-    .app { max-width: 1540px; margin: 0 auto; padding: 26px; }
-    .hero { display:flex; justify-content:space-between; gap:18px; align-items:flex-start; margin-bottom:22px; }
+    .app { max-width: 1540px; margin: 0 auto; padding: 24px; }
+    .hero { display:flex; justify-content:space-between; align-items:flex-start; gap:18px; margin-bottom:20px; }
     .hero h1 { margin:0 0 8px; font-size:34px; letter-spacing:-.03em; }
-    .hero p { margin:0; color:var(--muted); max-width:920px; line-height:1.5; }
-    .top-actions,.pill-row,.small-actions,.ads-toolbar { display:flex; gap:10px; flex-wrap:wrap; }
+    .hero p { margin:0; color:var(--muted); max-width:940px; line-height:1.55; }
     .layout { display:grid; grid-template-columns:390px minmax(0,1fr); gap:20px; }
     .panel { background:linear-gradient(180deg, rgba(255,255,255,.03), rgba(255,255,255,.015)); border:1px solid var(--line); border-radius:var(--radius); box-shadow:var(--shadow); }
-    .sidebar { position:sticky; top:16px; align-self:start; padding:18px; }
+    .sidebar { padding:18px; position:sticky; top:14px; align-self:start; }
     .content { display:grid; gap:20px; }
     .section { padding:18px; }
-    .section h2,.section h3 { margin:0 0 12px; letter-spacing:-.02em; }
-    .section-subtext,.muted { color:var(--muted); font-size:14px; line-height:1.5; }
+    .section h2, .section h3 { margin:0 0 10px; letter-spacing:-.02em; }
+    .muted, .section-subtext { color:var(--muted); font-size:14px; line-height:1.55; }
     .field { display:grid; gap:7px; margin-bottom:14px; }
-    .field label { font-size:12px; color:var(--muted); text-transform:uppercase; letter-spacing:.04em; }
-    input, textarea, select {
-      width:100%; border-radius:12px; border:1px solid rgba(255,255,255,.08);
-      background:rgba(255,255,255,.04); color:var(--text); padding:12px 14px; font:inherit;
+    .field label { font-size:12px; color:var(--muted); text-transform:uppercase; letter-spacing:.06em; }
+    select, textarea, input {
+      width:100%; font:inherit; color:var(--text); padding:12px 14px;
+      border-radius:12px; border:1px solid rgba(255,255,255,.08); background:rgba(255,255,255,.04);
+      outline:none;
     }
-    textarea { resize:vertical; min-height:90px; }
-    button,a.btn-secondary {
-      border:0; border-radius:12px; padding:12px 16px; font:inherit; font-weight:700; cursor:pointer;
-      text-decoration:none; display:inline-flex; align-items:center; justify-content:center;
+    textarea { min-height:90px; resize:vertical; }
+    .top-actions, .button-row, .pill-row, .small-actions { display:flex; gap:10px; flex-wrap:wrap; }
+    button, a.btn {
+      appearance:none; border:0; cursor:pointer; text-decoration:none; font:inherit; font-weight:700;
+      border-radius:12px; padding:12px 16px; display:inline-flex; align-items:center; justify-content:center;
     }
-    .btn-primary { background:linear-gradient(135deg, var(--brand-1), var(--brand-2)); color:#07211d; }
+    .btn-primary { background:linear-gradient(135deg, var(--gold), var(--gold-2)); color:#15120d; }
     .btn-secondary { background:rgba(255,255,255,.05); color:var(--text); border:1px solid rgba(255,255,255,.08); }
-    .btn-danger { background:rgba(251,113,133,.15); color:#ffdbe2; border:1px solid rgba(251,113,133,.25); }
-    .row-3 { display:grid; grid-template-columns:repeat(3,1fr); gap:12px; }
-    .split { display:grid; grid-template-columns:1fr 1fr; gap:20px; }
-    .competitor-list,.trend-grid,.idea-grid,.ads-grid,.prompt-grid,.insight-list { display:grid; gap:14px; }
-    .competitor-card,.trend-card,.idea-card,.prompt-card { border-radius:16px; border:1px solid var(--line); background:rgba(255,255,255,.03); padding:14px; }
-    .competitor-card.active { border-color:rgba(94,234,212,.55); box-shadow:inset 0 0 0 1px rgba(94,234,212,.18); }
-    .competitor-top { display:flex; justify-content:space-between; gap:10px; align-items:center; margin-bottom:8px; }
-    .mini-stat,.pill,.status { border-radius:999px; padding:7px 10px; font-size:12px; background:rgba(255,255,255,.05); color:#c8d9e7; border:1px solid rgba(255,255,255,.06); }
-    .status { border-radius:12px; color:var(--muted); }
-    .pill-row { margin-top:10px; }
-    .insight-item { padding:12px; border-radius:12px; background:rgba(255,255,255,.03); border:1px solid rgba(255,255,255,.06); line-height:1.5; }
-    .ads-grid { grid-template-columns:repeat(2,minmax(280px,1fr)); }
+    .btn-danger { background:rgba(255,95,95,.14); color:#ffd8d8; border:1px solid rgba(255,95,95,.24); }
+    .row-2 { display:grid; grid-template-columns:1fr 1fr; gap:14px; }
+    .row-3 { display:grid; grid-template-columns:repeat(3,1fr); gap:14px; }
+    .competitor-grid, .sample-grid, .ads-grid, .insight-grid { display:grid; gap:14px; }
+    .competitor-grid { grid-template-columns:repeat(2,minmax(0,1fr)); }
+    .sample-grid, .ads-grid { grid-template-columns:repeat(2,minmax(300px,1fr)); }
+    .insight-grid { grid-template-columns:repeat(3,1fr); }
+    .card, .insight-card { border-radius:16px; border:1px solid var(--line); background:rgba(255,255,255,.03); padding:14px; }
+    .card.active { border-color: rgba(200,169,110,.55); box-shadow: inset 0 0 0 1px rgba(200,169,110,.2); }
+    .card-top { display:flex; justify-content:space-between; gap:10px; align-items:flex-start; margin-bottom:8px; }
+    .pill { border-radius:999px; padding:7px 10px; font-size:12px; background:rgba(255,255,255,.05); color:#d8e1ea; border:1px solid rgba(255,255,255,.06); }
+    .status { color:var(--muted); font-size:13px; }
+    .list { display:grid; gap:10px; }
+    .list-item { padding:12px; border-radius:12px; background:rgba(255,255,255,.03); border:1px solid rgba(255,255,255,.06); line-height:1.55; }
     .ad-card { border-radius:22px; overflow:hidden; border:1px solid var(--line); background:rgba(255,255,255,.03); }
     .ad-preview {
       aspect-ratio:4/5; position:relative; overflow:hidden; padding:22px; display:flex; flex-direction:column; justify-content:space-between;
-      background:linear-gradient(145deg, #0b1520, #15293a);
+      background:linear-gradient(145deg, #0f1319 0%, #171c24 55%, #101418 100%);
     }
-    .ad-noise { position:absolute; inset:0; background-image:linear-gradient(180deg, rgba(255,255,255,.03), transparent 40%); opacity:.24; pointer-events:none; }
-    .ad-orb { position:absolute; border-radius:999px; filter:blur(12px); opacity:.85; }
-    .ad-orb.one { width:220px; height:220px; background:rgba(22,193,176,.28); top:-45px; right:-30px; }
-    .ad-orb.two { width:180px; height:180px; background:rgba(94,234,212,.16); bottom:-45px; left:-30px; }
-    .tf-copy,.tf-brand,.ad-bottom { position:relative; z-index:2; }
-    .tf-brand { display:inline-flex; align-items:center; gap:10px; }
-    .tf-mark { width:38px; height:38px; border-radius:12px; background:linear-gradient(135deg,var(--brand-1),var(--brand-2)); color:#04211d; font-weight:900; display:grid; place-items:center; }
-    .ad-kicker { display:inline-flex; align-self:flex-start; padding:7px 10px; border-radius:999px; background:rgba(255,255,255,.08); font-size:12px; border:1px solid rgba(255,255,255,.08); margin-top:14px; }
-    .ad-headline { margin-top:12px; font-size:30px; font-weight:800; line-height:1.03; letter-spacing:-.03em; white-space:pre-line; }
-    .ad-body { margin-top:10px; color:rgba(232,241,248,.92); font-size:14px; line-height:1.45; max-width:84%; }
-    .ad-bottom { display:flex; justify-content:space-between; align-items:flex-end; gap:12px; }
-    .social-proof { display:grid; gap:6px; max-width:62%; }
-    .social-proof .big { font-size:14px; font-weight:700; }
-    .social-proof .small { font-size:12px; color:rgba(232,241,248,.72); }
-    .ad-cta { border-radius:999px; padding:11px 16px; background:linear-gradient(135deg,var(--brand-1),var(--brand-2)); color:#08221f; font-size:13px; font-weight:800; text-transform:uppercase; letter-spacing:.05em; white-space:nowrap; }
+    .ad-preview::before {
+      content:""; position:absolute; width:230px; height:230px; border-radius:999px; background:rgba(200,169,110,.18); top:-48px; right:-28px; filter:blur(8px);
+    }
+    .ad-preview::after {
+      content:""; position:absolute; width:190px; height:190px; border-radius:999px; background:rgba(92,107,60,.20); bottom:-44px; left:-28px; filter:blur(8px);
+    }
+    .ad-layer { position:relative; z-index:2; }
+    .brand-lock { display:inline-flex; gap:10px; align-items:center; }
+    .brand-mark { width:38px; height:38px; border-radius:12px; background:linear-gradient(135deg,var(--olive),var(--gold)); color:#15120d; font-weight:900; display:grid; place-items:center; }
+    .ad-kicker { margin-top:14px; display:inline-flex; align-self:flex-start; padding:8px 11px; border-radius:999px; font-size:12px; background:rgba(255,255,255,.08); border:1px solid rgba(255,255,255,.09); }
+    .ad-headline { margin-top:12px; font-size:31px; line-height:1.03; font-weight:800; letter-spacing:-.03em; white-space:pre-line; }
+    .ad-body { margin-top:10px; font-size:14px; line-height:1.48; color:rgba(237,243,248,.92); max-width:85%; }
+    .ad-bottom { display:flex; justify-content:space-between; gap:12px; align-items:flex-end; }
+    .ad-meta { font-size:12px; color:rgba(237,243,248,.72); display:grid; gap:6px; max-width:65%; }
+    .ad-cta { border-radius:999px; padding:11px 16px; background:linear-gradient(135deg,var(--gold),var(--gold-2)); color:#19150e; font-size:13px; font-weight:800; text-transform:uppercase; letter-spacing:.05em; }
     .ad-editor { padding:14px; display:grid; gap:10px; }
-    .ad-editor-actions { display:flex; justify-content:space-between; gap:10px; flex-wrap:wrap; }
-    .empty-state { border:1px dashed rgba(255,255,255,.12); padding:24px; border-radius:18px; color:var(--muted); }
-    .footer-note { margin-top:16px; color:var(--muted); font-size:12px; line-height:1.5; }
-    @media (max-width: 1180px) { .layout,.split { grid-template-columns:1fr; } .sidebar { position:static; } }
-    @media (max-width: 820px) { .ads-grid,.row-3 { grid-template-columns:1fr; } .hero { flex-direction:column; } .app { padding:16px; } }
+    .empty { padding:24px; border-radius:16px; border:1px dashed rgba(255,255,255,.10); color:var(--muted); }
+    .sample-note { font-size:12px; color:var(--muted); margin-top:8px; }
+    .footer-note { margin-top:12px; font-size:12px; color:var(--muted); line-height:1.55; }
+    @media (max-width: 1180px) { .layout, .insight-grid, .row-2, .row-3, .competitor-grid, .sample-grid, .ads-grid { grid-template-columns:1fr; } .sidebar { position:static; } }
+    @media (max-width: 820px) { .hero { flex-direction:column; } .app { padding:16px; } }
   </style>
 </head>
 <body>
@@ -98,116 +103,120 @@
     <div class="hero">
       <div>
         <h1>TruthFinder Creative Studio</h1>
-        <p>Type the angle, hook, use case, and visual trend you want to test. The tool uses TruthFinder's Meta Ad Library position as the brand reference, then generates 5 new editable display creative concepts.</p>
+        <p>Use competitor reference samples from the Meta Ad Library workflow, select your angle, hook, use case, CTA, and visual trend, then generate 5 new TruthFinder-branded display creatives instantly.</p>
       </div>
       <div class="top-actions">
-        <button class="btn-secondary" id="loadSeedDataBtn">Load example brief</button>
-        <button class="btn-primary" id="generateAdsTopBtn">Generate 5 new ads</button>
+        <button class="btn-secondary" id="loadDefaultsBtn">Load default brief</button>
+        <button class="btn-primary" id="generateTopBtn">Generate 5 new ads</button>
       </div>
     </div>
 
     <div class="layout">
       <aside class="panel sidebar">
         <div class="section" style="padding:0;">
-          <h2>Creative controls</h2>
-          <p class="section-subtext">These fields are live inputs. Type your brief, then click Generate.</p>
+          <h2>Creative brief</h2>
+          <p class="section-subtext">All dropdowns are active. Pick your brief and click Generate.</p>
 
           <div class="field">
-            <label for="angleInput">Angle</label>
-            <input id="angleInput" list="angleSuggestions" placeholder="Type an angle" />
-            <datalist id="angleSuggestions"></datalist>
-          </div>
-
-          <div class="field">
-            <label for="hookInput">Hook</label>
-            <input id="hookInput" list="hookSuggestions" placeholder="Type a hook" />
-            <datalist id="hookSuggestions"></datalist>
+            <label for="angleSelect">Angle</label>
+            <select id="angleSelect"></select>
           </div>
 
           <div class="field">
-            <label for="useCaseInput">Use case</label>
-            <input id="useCaseInput" list="useCaseSuggestions" placeholder="Type a use case" />
-            <datalist id="useCaseSuggestions"></datalist>
+            <label for="hookSelect">Hook</label>
+            <select id="hookSelect"></select>
           </div>
 
           <div class="field">
-            <label for="platformTrendInput">Visual trend</label>
-            <input id="platformTrendInput" list="trendSuggestions" placeholder="Type a visual trend" />
-            <datalist id="trendSuggestions"></datalist>
+            <label for="useCaseSelect">Use case</label>
+            <select id="useCaseSelect"></select>
           </div>
 
           <div class="field">
-            <label for="ctaInput">Primary CTA</label>
-            <input id="ctaInput" value="Search Now" />
+            <label for="trendSelect">Visual trend</label>
+            <select id="trendSelect"></select>
           </div>
 
           <div class="field">
-            <label for="customCopyInput">Custom copy guidance</label>
-            <textarea id="customCopyInput" placeholder="Example: mobile-first urgency, first-date safety, darker premium feel, shorter copy."></textarea>
+            <label for="ctaSelect">CTA</label>
+            <select id="ctaSelect"></select>
           </div>
 
           <div class="field">
-            <label for="notesInput">TruthFinder / competitor observations</label>
-            <textarea id="notesInput" placeholder="Paste observations from TruthFinder's Meta Ad Library or competitor ads here."></textarea>
+            <label for="competitorSelect">Primary competitor reference</label>
+            <select id="competitorSelect"></select>
           </div>
 
-          <div class="row-3">
-            <div class="field"><label for="brand1">Brand accent 1</label><input id="brand1" type="color" value="#16c1b0" /></div>
-            <div class="field"><label for="brand2">Brand accent 2</label><input id="brand2" type="color" value="#5eead4" /></div>
-            <div class="field"><label for="brand3">Brand dark</label><input id="brand3" type="color" value="#0f1720" /></div>
+          <div class="field">
+            <label for="copyInput">Copy guidance</label>
+            <textarea id="copyInput" placeholder="Example: more urgency, shorter headline, cleaner premium look, female-skewed tone."></textarea>
           </div>
 
-          <div class="small-actions" style="margin-top:12px;">
-            <button class="btn-primary" id="generateAdsBtn">Generate 5 new ads</button>
-            <button class="btn-secondary" id="generateInsightsBtn">Refresh insights</button>
-            <button class="btn-secondary" id="saveStateBtn">Save locally</button>
-            <button class="btn-danger" id="clearSavedBtn">Clear saved data</button>
+          <div class="field">
+            <label for="notesInput">Meta library observations</label>
+            <textarea id="notesInput" placeholder="Paste notes from TruthFinder or competitor Meta Ad Library review here."></textarea>
           </div>
-          <div class="footer-note">If the four main fields are filled in, the generator will always produce five new ad concepts below.</div>
+
+          <div class="button-row">
+            <button class="btn-primary" id="generateBtn">Generate 5 new ads</button>
+            <button class="btn-secondary" id="refreshBtn">Refresh insights</button>
+            <button class="btn-danger" id="resetBtn">Reset</button>
+          </div>
+
+          <div class="footer-note" id="statusText">5 competitor reference samples are preloaded below. The generator is ready.</div>
         </div>
       </aside>
 
       <main class="content">
-        <section class="panel section">
-          <h3>Meta creative references</h3>
-          <div id="competitorList" class="competitor-list"></div>
-        </section>
-
-        <section class="panel section">
-          <h3>Creative direction status</h3>
-          <div id="insightsStatus" class="status">Ready.</div>
-          <div id="insightsList" class="insight-list" style="margin-top:12px;"></div>
-        </section>
-
-        <section class="split">
-          <div class="panel section">
-            <h3>Use-case ideas</h3>
-            <div id="ideaGrid" class="idea-grid"></div>
+        <section class="insight-grid">
+          <div class="panel section insight-card">
+            <h3>Competitor signals</h3>
+            <div class="list" id="signalList"></div>
           </div>
-          <div class="panel section">
-            <h3>Visual trends</h3>
-            <div id="trendGrid" class="trend-grid"></div>
+          <div class="panel section insight-card">
+            <h3>Angle opportunities</h3>
+            <div class="list" id="opportunityList"></div>
+          </div>
+          <div class="panel section insight-card">
+            <h3>Visual direction</h3>
+            <div class="list" id="visualList"></div>
           </div>
         </section>
 
         <section class="panel section">
-          <div class="ads-toolbar">
-            <h3 style="margin:0;">Generated display creatives</h3>
-            <div class="small-actions">
-              <button class="btn-secondary" id="downloadJsonBtn">Export ad set JSON</button>
-              <button class="btn-secondary" id="downloadHtmlBtn">Export ad board HTML</button>
+          <div class="card-top">
+            <div>
+              <h3 style="margin-bottom:4px;">Meta Ad Library competitor references</h3>
+              <div class="muted">These are preloaded reference samples inspired by category patterns. Each card links out to the competitor's Meta Ad Library page for manual review.</div>
             </div>
           </div>
-          <div id="adsGrid" class="ads-grid"></div>
+          <div class="competitor-grid" id="competitorGrid"></div>
         </section>
 
         <section class="panel section">
-          <h3>Designer / image prompts</h3>
-          <div id="promptGrid" class="prompt-grid"></div>
+          <div class="card-top">
+            <div>
+              <h3 style="margin-bottom:4px;">Preloaded creative samples</h3>
+              <div class="muted">Five sample cards are loaded on page entry so you always see visual references before generating new work.</div>
+            </div>
+          </div>
+          <div class="sample-grid" id="sampleGrid"></div>
+          <div class="sample-note">These are reference mockups based on competitor categories and manual Meta Ad Library review workflow. They are not embedded live Meta-hosted creatives.</div>
+        </section>
+
+        <section class="panel section">
+          <div class="card-top">
+            <div>
+              <h3 style="margin-bottom:4px;">Generated display creatives</h3>
+              <div class="muted">Click Generate to create 5 new TruthFinder-branded variations from the selected brief.</div>
+            </div>
+          </div>
+          <div class="ads-grid" id="adsGrid"></div>
         </section>
       </main>
     </div>
   </div>
+
   <script src="./functions/analyze.js"></script>
 </body>
 </html>
