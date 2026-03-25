@@ -6,506 +6,91 @@
   <title>TruthFinder Creative Studio</title>
   <style>
     :root {
-      --bg: #07131f;
+      --bg: #08131d;
       --panel: #0d1c2b;
-      --panel-2: #11263a;
+      --panel-2: #12263a;
       --line: rgba(255,255,255,0.08);
       --text: #e8f1f8;
-      --muted: #95a8bb;
+      --muted: #97abbe;
       --brand-1: #16c1b0;
       --brand-2: #5eead4;
       --brand-3: #0f1720;
-      --accent: #7dd3fc;
-      --danger: #fb7185;
-      --success: #34d399;
-      --shadow: 0 18px 50px rgba(0, 0, 0, 0.28);
+      --shadow: 0 18px 50px rgba(0,0,0,.28);
       --radius: 18px;
     }
-
     * { box-sizing: border-box; }
     body {
       margin: 0;
       font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
       background:
-        radial-gradient(circle at top left, rgba(22,193,176,0.12), transparent 30%),
-        radial-gradient(circle at top right, rgba(125,211,252,0.08), transparent 25%),
+        radial-gradient(circle at top left, rgba(22,193,176,.12), transparent 30%),
+        radial-gradient(circle at top right, rgba(94,234,212,.08), transparent 25%),
         var(--bg);
       color: var(--text);
     }
-
-    a { color: var(--brand-2); text-decoration: none; }
-    a:hover { text-decoration: underline; }
-
-    .app {
-      max-width: 1560px;
-      margin: 0 auto;
-      padding: 28px;
+    .app { max-width: 1540px; margin: 0 auto; padding: 26px; }
+    .hero { display:flex; justify-content:space-between; gap:18px; align-items:flex-start; margin-bottom:22px; }
+    .hero h1 { margin:0 0 8px; font-size:34px; letter-spacing:-.03em; }
+    .hero p { margin:0; color:var(--muted); max-width:920px; line-height:1.5; }
+    .top-actions,.pill-row,.small-actions,.ads-toolbar { display:flex; gap:10px; flex-wrap:wrap; }
+    .layout { display:grid; grid-template-columns:390px minmax(0,1fr); gap:20px; }
+    .panel { background:linear-gradient(180deg, rgba(255,255,255,.03), rgba(255,255,255,.015)); border:1px solid var(--line); border-radius:var(--radius); box-shadow:var(--shadow); }
+    .sidebar { position:sticky; top:16px; align-self:start; padding:18px; }
+    .content { display:grid; gap:20px; }
+    .section { padding:18px; }
+    .section h2,.section h3 { margin:0 0 12px; letter-spacing:-.02em; }
+    .section-subtext,.muted { color:var(--muted); font-size:14px; line-height:1.5; }
+    .field { display:grid; gap:7px; margin-bottom:14px; }
+    .field label { font-size:12px; color:var(--muted); text-transform:uppercase; letter-spacing:.04em; }
+    input, textarea, select {
+      width:100%; border-radius:12px; border:1px solid rgba(255,255,255,.08);
+      background:rgba(255,255,255,.04); color:var(--text); padding:12px 14px; font:inherit;
     }
-
-    .hero {
-      display: flex;
-      justify-content: space-between;
-      gap: 20px;
-      align-items: flex-start;
-      margin-bottom: 24px;
+    textarea { resize:vertical; min-height:90px; }
+    button,a.btn-secondary {
+      border:0; border-radius:12px; padding:12px 16px; font:inherit; font-weight:700; cursor:pointer;
+      text-decoration:none; display:inline-flex; align-items:center; justify-content:center;
     }
-
-    .hero h1 {
-      font-size: 34px;
-      margin: 0 0 8px;
-      letter-spacing: -0.03em;
-    }
-
-    .hero p {
-      margin: 0;
-      color: var(--muted);
-      max-width: 860px;
-      line-height: 1.45;
-    }
-
-    .badge-row {
-      display: flex;
-      gap: 10px;
-      flex-wrap: wrap;
-      margin-top: 14px;
-    }
-
-    .badge {
-      border: 1px solid var(--line);
-      border-radius: 999px;
-      padding: 8px 12px;
-      font-size: 12px;
-      color: var(--muted);
-      background: rgba(255,255,255,0.03);
-    }
-
-    .top-actions {
-      display: flex;
-      gap: 10px;
-      flex-wrap: wrap;
-    }
-
-    .layout {
-      display: grid;
-      grid-template-columns: 380px minmax(0, 1fr);
-      gap: 20px;
-    }
-
-    .panel {
-      background: linear-gradient(180deg, rgba(255,255,255,0.03), rgba(255,255,255,0.015));
-      border: 1px solid var(--line);
-      border-radius: var(--radius);
-      box-shadow: var(--shadow);
-    }
-
-    .sidebar {
-      position: sticky;
-      top: 18px;
-      align-self: start;
-      padding: 18px;
-      max-height: calc(100vh - 36px);
-      overflow: auto;
-    }
-
-    .content {
-      display: grid;
-      gap: 20px;
-    }
-
-    .section {
-      padding: 18px;
-    }
-
-    .section h2, .section h3 {
-      margin: 0 0 12px;
-      letter-spacing: -0.02em;
-    }
-
-    .section-subtext {
-      margin: 0 0 16px;
-      color: var(--muted);
-      font-size: 14px;
-      line-height: 1.45;
-    }
-
-    .field {
-      display: grid;
-      gap: 7px;
-      margin-bottom: 14px;
-    }
-
-    .field label {
-      font-size: 12px;
-      color: var(--muted);
-      letter-spacing: 0.02em;
-      text-transform: uppercase;
-    }
-
-    input, select, textarea {
-      width: 100%;
-      border-radius: 12px;
-      border: 1px solid rgba(255,255,255,0.08);
-      background: rgba(255,255,255,0.04);
-      color: var(--text);
-      padding: 12px 14px;
-      font: inherit;
-    }
-
-    textarea {
-      resize: vertical;
-      min-height: 86px;
-      line-height: 1.45;
-    }
-
-    .row-2 {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 12px;
-    }
-
-    .row-3 {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 12px;
-    }
-
-    button {
-      border: 0;
-      border-radius: 12px;
-      padding: 12px 16px;
-      font: inherit;
-      font-weight: 700;
-      cursor: pointer;
-      transition: transform 0.16s ease, opacity 0.16s ease, background 0.16s ease;
-    }
-
-    button:hover { transform: translateY(-1px); }
-    button:active { transform: translateY(0); }
-
-    .btn-primary {
-      background: linear-gradient(135deg, var(--brand-1), var(--brand-2));
-      color: #07211d;
-    }
-
-    .btn-secondary {
-      background: rgba(255,255,255,0.05);
-      color: var(--text);
-      border: 1px solid rgba(255,255,255,0.08);
-    }
-
-    .btn-danger {
-      background: rgba(251,113,133,0.15);
-      color: #ffdbe2;
-      border: 1px solid rgba(251,113,133,0.25);
-    }
-
-    .stack-actions {
-      display: grid;
-      gap: 10px;
-      margin-top: 12px;
-    }
-
-    .competitor-list, .trend-grid, .idea-grid, .ads-grid, .prompt-grid {
-      display: grid;
-      gap: 14px;
-    }
-
-    .competitor-card, .trend-card, .idea-card, .prompt-card {
-      border-radius: 16px;
-      border: 1px solid var(--line);
-      background: rgba(255,255,255,0.03);
-      padding: 14px;
-    }
-
-    .competitor-card.active {
-      border-color: rgba(94,234,212,0.6);
-      box-shadow: inset 0 0 0 1px rgba(94,234,212,0.22);
-    }
-
-    .competitor-top {
-      display: flex;
-      justify-content: space-between;
-      gap: 10px;
-      align-items: center;
-      margin-bottom: 10px;
-    }
-
-    .mini-stat {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      border-radius: 999px;
-      padding: 6px 10px;
-      font-size: 12px;
-      color: var(--muted);
-      background: rgba(255,255,255,0.04);
-    }
-
-    .pill-row {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
-      margin-top: 10px;
-    }
-
-    .pill {
-      border-radius: 999px;
-      padding: 7px 10px;
-      font-size: 12px;
-      background: rgba(255,255,255,0.05);
-      color: #c7d8e6;
-      border: 1px solid rgba(255,255,255,0.06);
-    }
-
-    .split {
-      display: grid;
-      grid-template-columns: 1.08fr 0.92fr;
-      gap: 20px;
-    }
-
-    .ads-toolbar {
-      display: flex;
-      justify-content: space-between;
-      gap: 12px;
-      align-items: center;
-      margin-bottom: 14px;
-      flex-wrap: wrap;
-    }
-
-    .ads-grid {
-      grid-template-columns: repeat(2, minmax(280px, 1fr));
-    }
-
-    .ad-card {
-      border-radius: 22px;
-      overflow: hidden;
-      border: 1px solid var(--line);
-      background: rgba(255,255,255,0.03);
-      display: grid;
-      grid-template-rows: auto auto;
-    }
-
+    .btn-primary { background:linear-gradient(135deg, var(--brand-1), var(--brand-2)); color:#07211d; }
+    .btn-secondary { background:rgba(255,255,255,.05); color:var(--text); border:1px solid rgba(255,255,255,.08); }
+    .btn-danger { background:rgba(251,113,133,.15); color:#ffdbe2; border:1px solid rgba(251,113,133,.25); }
+    .row-3 { display:grid; grid-template-columns:repeat(3,1fr); gap:12px; }
+    .split { display:grid; grid-template-columns:1fr 1fr; gap:20px; }
+    .competitor-list,.trend-grid,.idea-grid,.ads-grid,.prompt-grid,.insight-list { display:grid; gap:14px; }
+    .competitor-card,.trend-card,.idea-card,.prompt-card { border-radius:16px; border:1px solid var(--line); background:rgba(255,255,255,.03); padding:14px; }
+    .competitor-card.active { border-color:rgba(94,234,212,.55); box-shadow:inset 0 0 0 1px rgba(94,234,212,.18); }
+    .competitor-top { display:flex; justify-content:space-between; gap:10px; align-items:center; margin-bottom:8px; }
+    .mini-stat,.pill,.status { border-radius:999px; padding:7px 10px; font-size:12px; background:rgba(255,255,255,.05); color:#c8d9e7; border:1px solid rgba(255,255,255,.06); }
+    .status { border-radius:12px; color:var(--muted); }
+    .pill-row { margin-top:10px; }
+    .insight-item { padding:12px; border-radius:12px; background:rgba(255,255,255,.03); border:1px solid rgba(255,255,255,.06); line-height:1.5; }
+    .ads-grid { grid-template-columns:repeat(2,minmax(280px,1fr)); }
+    .ad-card { border-radius:22px; overflow:hidden; border:1px solid var(--line); background:rgba(255,255,255,.03); }
     .ad-preview {
-      aspect-ratio: 4 / 5;
-      position: relative;
-      overflow: hidden;
-      padding: 22px;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      background: linear-gradient(145deg, #0b1520, #15293a);
+      aspect-ratio:4/5; position:relative; overflow:hidden; padding:22px; display:flex; flex-direction:column; justify-content:space-between;
+      background:linear-gradient(145deg, #0b1520, #15293a);
     }
-
-    .ad-noise {
-      position: absolute;
-      inset: 0;
-      background-image:
-        radial-gradient(circle at 15% 25%, rgba(255,255,255,0.12) 0 2px, transparent 2px),
-        radial-gradient(circle at 85% 15%, rgba(255,255,255,0.07) 0 2px, transparent 2px),
-        linear-gradient(180deg, rgba(255,255,255,0.03), transparent 38%);
-      opacity: 0.24;
-      pointer-events: none;
-    }
-
-    .ad-orb {
-      position: absolute;
-      border-radius: 999px;
-      filter: blur(8px);
-      opacity: 0.82;
-    }
-
-    .ad-orb.one {
-      width: 220px;
-      height: 220px;
-      background: rgba(22,193,176,0.34);
-      top: -40px;
-      right: -20px;
-    }
-
-    .ad-orb.two {
-      width: 180px;
-      height: 180px;
-      background: rgba(125,211,252,0.18);
-      bottom: -44px;
-      left: -36px;
-    }
-
-    .tf-brand {
-      display: inline-flex;
-      align-items: center;
-      gap: 10px;
-      position: relative;
-      z-index: 2;
-    }
-
-    .tf-mark {
-      width: 38px;
-      height: 38px;
-      border-radius: 12px;
-      background: linear-gradient(135deg, var(--brand-1), var(--brand-2));
-      color: #04211d;
-      font-weight: 900;
-      display: grid;
-      place-items: center;
-      box-shadow: 0 10px 30px rgba(22,193,176,0.25);
-    }
-
-    .tf-copy {
-      position: relative;
-      z-index: 2;
-      display: grid;
-      gap: 10px;
-    }
-
-    .ad-kicker {
-      display: inline-flex;
-      align-self: flex-start;
-      padding: 7px 10px;
-      border-radius: 999px;
-      background: rgba(255,255,255,0.08);
-      color: #dbedf9;
-      font-size: 12px;
-      border: 1px solid rgba(255,255,255,0.08);
-    }
-
-    .ad-headline {
-      font-size: 30px;
-      font-weight: 800;
-      line-height: 1.04;
-      letter-spacing: -0.03em;
-      max-width: 95%;
-      white-space: pre-line;
-      text-shadow: 0 4px 18px rgba(0,0,0,0.22);
-    }
-
-    .ad-body {
-      max-width: 84%;
-      color: rgba(232,241,248,0.9);
-      font-size: 14px;
-      line-height: 1.45;
-    }
-
-    .ad-bottom {
-      position: relative;
-      z-index: 2;
-      display: flex;
-      justify-content: space-between;
-      gap: 12px;
-      align-items: flex-end;
-    }
-
-    .social-proof {
-      display: grid;
-      gap: 6px;
-      max-width: 62%;
-    }
-
-    .social-proof .big {
-      font-size: 14px;
-      font-weight: 700;
-    }
-
-    .social-proof .small {
-      font-size: 12px;
-      color: rgba(232,241,248,0.72);
-    }
-
-    .ad-cta {
-      border-radius: 999px;
-      padding: 11px 16px;
-      background: linear-gradient(135deg, var(--brand-1), var(--brand-2));
-      color: #08221f;
-      font-size: 13px;
-      font-weight: 800;
-      text-transform: uppercase;
-      letter-spacing: 0.05em;
-      white-space: nowrap;
-    }
-
-    .ad-editor {
-      padding: 14px;
-      display: grid;
-      gap: 10px;
-    }
-
-    .ad-editor textarea,
-    .ad-editor input {
-      background: rgba(0,0,0,0.14);
-    }
-
-    .ad-editor-actions {
-      display: flex;
-      justify-content: space-between;
-      gap: 10px;
-      flex-wrap: wrap;
-      margin-top: 4px;
-    }
-
-    .muted {
-      color: var(--muted);
-      font-size: 13px;
-    }
-
-    .insight-list {
-      display: grid;
-      gap: 10px;
-      margin-top: 10px;
-    }
-
-    .insight-item {
-      padding: 12px;
-      border-radius: 12px;
-      background: rgba(255,255,255,0.03);
-      border: 1px solid rgba(255,255,255,0.06);
-      line-height: 1.45;
-    }
-
-    .status {
-      padding: 10px 12px;
-      border-radius: 12px;
-      font-size: 13px;
-      color: var(--muted);
-      background: rgba(255,255,255,0.03);
-      border: 1px solid rgba(255,255,255,0.06);
-    }
-
-    .small-actions {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
-      margin-top: 12px;
-    }
-
-    .footer-note {
-      margin-top: 20px;
-      color: var(--muted);
-      font-size: 12px;
-      line-height: 1.5;
-    }
-
-    @media (max-width: 1200px) {
-      .layout, .split {
-        grid-template-columns: 1fr;
-      }
-      .sidebar {
-        position: static;
-        max-height: none;
-      }
-    }
-
-    @media (max-width: 820px) {
-      .ads-grid, .row-2, .row-3 {
-        grid-template-columns: 1fr;
-      }
-      .hero {
-        flex-direction: column;
-      }
-      .app {
-        padding: 16px;
-      }
-      .ad-headline { font-size: 26px; }
-      .ad-body, .social-proof { max-width: 100%; }
-    }
+    .ad-noise { position:absolute; inset:0; background-image:linear-gradient(180deg, rgba(255,255,255,.03), transparent 40%); opacity:.24; pointer-events:none; }
+    .ad-orb { position:absolute; border-radius:999px; filter:blur(12px); opacity:.85; }
+    .ad-orb.one { width:220px; height:220px; background:rgba(22,193,176,.28); top:-45px; right:-30px; }
+    .ad-orb.two { width:180px; height:180px; background:rgba(94,234,212,.16); bottom:-45px; left:-30px; }
+    .tf-copy,.tf-brand,.ad-bottom { position:relative; z-index:2; }
+    .tf-brand { display:inline-flex; align-items:center; gap:10px; }
+    .tf-mark { width:38px; height:38px; border-radius:12px; background:linear-gradient(135deg,var(--brand-1),var(--brand-2)); color:#04211d; font-weight:900; display:grid; place-items:center; }
+    .ad-kicker { display:inline-flex; align-self:flex-start; padding:7px 10px; border-radius:999px; background:rgba(255,255,255,.08); font-size:12px; border:1px solid rgba(255,255,255,.08); margin-top:14px; }
+    .ad-headline { margin-top:12px; font-size:30px; font-weight:800; line-height:1.03; letter-spacing:-.03em; white-space:pre-line; }
+    .ad-body { margin-top:10px; color:rgba(232,241,248,.92); font-size:14px; line-height:1.45; max-width:84%; }
+    .ad-bottom { display:flex; justify-content:space-between; align-items:flex-end; gap:12px; }
+    .social-proof { display:grid; gap:6px; max-width:62%; }
+    .social-proof .big { font-size:14px; font-weight:700; }
+    .social-proof .small { font-size:12px; color:rgba(232,241,248,.72); }
+    .ad-cta { border-radius:999px; padding:11px 16px; background:linear-gradient(135deg,var(--brand-1),var(--brand-2)); color:#08221f; font-size:13px; font-weight:800; text-transform:uppercase; letter-spacing:.05em; white-space:nowrap; }
+    .ad-editor { padding:14px; display:grid; gap:10px; }
+    .ad-editor-actions { display:flex; justify-content:space-between; gap:10px; flex-wrap:wrap; }
+    .empty-state { border:1px dashed rgba(255,255,255,.12); padding:24px; border-radius:18px; color:var(--muted); }
+    .footer-note { margin-top:16px; color:var(--muted); font-size:12px; line-height:1.5; }
+    @media (max-width: 1180px) { .layout,.split { grid-template-columns:1fr; } .sidebar { position:static; } }
+    @media (max-width: 820px) { .ads-grid,.row-3 { grid-template-columns:1fr; } .hero { flex-direction:column; } .app { padding:16px; } }
   </style>
 </head>
 <body>
@@ -513,51 +98,41 @@
     <div class="hero">
       <div>
         <h1>TruthFinder Creative Studio</h1>
-        <p>
-          Competitive creative intelligence + angle development + five-ad concept generation in one place.
-          Use this to review competitor patterns from Meta Ad Library, define the hook and use case you want to push,
-          and generate new TruthFinder-ready display concepts you can hand to design or adapt for paid social.
-        </p>
-        <div class="badge-row">
-          <div class="badge">5-ad generation on click</div>
-          <div class="badge">Editable hooks, angles, and copy</div>
-          <div class="badge">Competitor library links</div>
-          <div class="badge">Trending visual direction prompts</div>
-        </div>
+        <p>Type the angle, hook, use case, and visual trend you want to test. The tool uses TruthFinder's Meta Ad Library position as the brand reference, then generates 5 new editable display creative concepts.</p>
       </div>
       <div class="top-actions">
-        <button class="btn-secondary" id="loadSeedDataBtn">Reload market defaults</button>
+        <button class="btn-secondary" id="loadSeedDataBtn">Load example brief</button>
         <button class="btn-primary" id="generateAdsTopBtn">Generate 5 new ads</button>
       </div>
     </div>
 
     <div class="layout">
       <aside class="panel sidebar">
-        <div class="section" style="padding: 0;">
+        <div class="section" style="padding:0;">
           <h2>Creative controls</h2>
-          <p class="section-subtext">Type your angle, hook, use case, and visual trend directly or pick from the dropdown suggestions. Those exact inputs drive the next 5 generated creatives.</p>
+          <p class="section-subtext">These fields are live inputs. Type your brief, then click Generate.</p>
 
           <div class="field">
             <label for="angleInput">Angle</label>
-            <input id="angleInput" list="angleSuggestions" placeholder="Type or select an angle" />
+            <input id="angleInput" list="angleSuggestions" placeholder="Type an angle" />
             <datalist id="angleSuggestions"></datalist>
           </div>
 
           <div class="field">
             <label for="hookInput">Hook</label>
-            <input id="hookInput" list="hookSuggestions" placeholder="Type or select a hook" />
+            <input id="hookInput" list="hookSuggestions" placeholder="Type a hook" />
             <datalist id="hookSuggestions"></datalist>
           </div>
 
           <div class="field">
-            <label for="useCaseInput">Use case / audience</label>
-            <input id="useCaseInput" list="useCaseSuggestions" placeholder="Type or select a use case" />
+            <label for="useCaseInput">Use case</label>
+            <input id="useCaseInput" list="useCaseSuggestions" placeholder="Type a use case" />
             <datalist id="useCaseSuggestions"></datalist>
           </div>
 
           <div class="field">
             <label for="platformTrendInput">Visual trend</label>
-            <input id="platformTrendInput" list="trendSuggestions" placeholder="Type or select a visual trend" />
+            <input id="platformTrendInput" list="trendSuggestions" placeholder="Type a visual trend" />
             <datalist id="trendSuggestions"></datalist>
           </div>
 
@@ -568,77 +143,56 @@
 
           <div class="field">
             <label for="customCopyInput">Custom copy guidance</label>
-            <textarea id="customCopyInput" placeholder="Example: lean into Facebook Marketplace meetups, suspicious phone numbers, modern trust issues, and mobile-first urgency."></textarea>
+            <textarea id="customCopyInput" placeholder="Example: mobile-first urgency, first-date safety, darker premium feel, shorter copy."></textarea>
           </div>
 
           <div class="field">
-            <label for="notesInput">Competitor notes / observations</label>
-            <textarea id="notesInput" placeholder="Paste notes from Meta Ad Library here. Example: BeenVerified leading with urgent red-callout banners, testimonials, and reverse phone lookup hooks."></textarea>
+            <label for="notesInput">TruthFinder / competitor observations</label>
+            <textarea id="notesInput" placeholder="Paste observations from TruthFinder's Meta Ad Library or competitor ads here."></textarea>
           </div>
 
           <div class="row-3">
-            <div class="field">
-              <label for="brand1">Brand color 1</label>
-              <input id="brand1" type="color" value="#16c1b0" />
-            </div>
-            <div class="field">
-              <label for="brand2">Brand color 2</label>
-              <input id="brand2" type="color" value="#5eead4" />
-            </div>
-            <div class="field">
-              <label for="brand3">Dark base</label>
-              <input id="brand3" type="color" value="#0f1720" />
-            </div>
+            <div class="field"><label for="brand1">Brand accent 1</label><input id="brand1" type="color" value="#16c1b0" /></div>
+            <div class="field"><label for="brand2">Brand accent 2</label><input id="brand2" type="color" value="#5eead4" /></div>
+            <div class="field"><label for="brand3">Brand dark</label><input id="brand3" type="color" value="#0f1720" /></div>
           </div>
 
-          <div class="stack-actions">
+          <div class="small-actions" style="margin-top:12px;">
             <button class="btn-primary" id="generateAdsBtn">Generate 5 new ads</button>
             <button class="btn-secondary" id="generateInsightsBtn">Refresh insights</button>
             <button class="btn-secondary" id="saveStateBtn">Save locally</button>
             <button class="btn-danger" id="clearSavedBtn">Clear saved data</button>
           </div>
-
-          <div class="footer-note">
-            This version is launchable as a static app. It uses editable competitor links and local generation logic.
-            Live Meta extraction should be wired through your own compliant backend workflow.
-          </div>
+          <div class="footer-note">If the four main fields are filled in, the generator will always produce five new ad concepts below.</div>
         </div>
       </aside>
 
       <main class="content">
         <section class="panel section">
-          <h2>Competitor intelligence</h2>
-          <p class="section-subtext">Keep your Meta Ad Library links here, open them in one click, and capture the patterns competitors are leaning on right now.</p>
+          <h3>Meta creative references</h3>
           <div id="competitorList" class="competitor-list"></div>
+        </section>
+
+        <section class="panel section">
+          <h3>Creative direction status</h3>
+          <div id="insightsStatus" class="status">Ready.</div>
+          <div id="insightsList" class="insight-list" style="margin-top:12px;"></div>
         </section>
 
         <section class="split">
           <div class="panel section">
-            <h2>Current market read</h2>
-            <p class="section-subtext">Auto-synthesized from your selected angle, use case, trend, and the competitor notes you provide.</p>
-            <div id="insightsStatus" class="status">Insights ready.</div>
-            <div id="insightsList" class="insight-list"></div>
-          </div>
-
-          <div class="panel section">
-            <h2>New use cases and hooks</h2>
-            <p class="section-subtext">Designed to widen TruthFinder’s paid social surface area beyond the usual background-check framing.</p>
+            <h3>Use-case ideas</h3>
             <div id="ideaGrid" class="idea-grid"></div>
           </div>
-        </section>
-
-        <section class="panel section">
-          <h2>Trending visual directions</h2>
-          <p class="section-subtext">These are the visual treatments the generator uses to make the ads feel more native to current social creative styles.</p>
-          <div id="trendGrid" class="trend-grid"></div>
+          <div class="panel section">
+            <h3>Visual trends</h3>
+            <div id="trendGrid" class="trend-grid"></div>
+          </div>
         </section>
 
         <section class="panel section">
           <div class="ads-toolbar">
-            <div>
-              <h2 style="margin-bottom:6px;">Generated display creative</h2>
-              <div class="muted">Click Generate 5 new ads to create 5 editable concepts based on your typed angle, hook, use case, and visual trend.</div>
-            </div>
+            <h3 style="margin:0;">Generated display creatives</h3>
             <div class="small-actions">
               <button class="btn-secondary" id="downloadJsonBtn">Export ad set JSON</button>
               <button class="btn-secondary" id="downloadHtmlBtn">Export ad board HTML</button>
@@ -648,14 +202,12 @@
         </section>
 
         <section class="panel section">
-          <h2>Designer prompts</h2>
-          <p class="section-subtext">Quick handoff prompts for a designer, image model, or video editor.</p>
+          <h3>Designer / image prompts</h3>
           <div id="promptGrid" class="prompt-grid"></div>
         </section>
       </main>
     </div>
   </div>
-
   <script src="./functions/analyze.js"></script>
 </body>
 </html>
