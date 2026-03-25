@@ -527,7 +527,7 @@
       </div>
       <div class="top-actions">
         <button class="btn-secondary" id="loadSeedDataBtn">Reload market defaults</button>
-        <button class="btn-primary" id="generateAdsTopBtn">Generate new ad set</button>
+        <button class="btn-primary" id="generateAdsTopBtn">Generate 5 new ads</button>
       </div>
     </div>
 
@@ -535,26 +535,30 @@
       <aside class="panel sidebar">
         <div class="section" style="padding: 0;">
           <h2>Creative controls</h2>
-          <p class="section-subtext">Set the messaging frame, brand treatment, and competitor context before generating.</p>
+          <p class="section-subtext">Type your angle, hook, use case, and visual trend directly or pick from the dropdown suggestions. Those exact inputs drive the next 5 generated creatives.</p>
 
           <div class="field">
-            <label for="angleSelect">Angle</label>
-            <select id="angleSelect"></select>
+            <label for="angleInput">Angle</label>
+            <input id="angleInput" list="angleSuggestions" placeholder="Type or select an angle" />
+            <datalist id="angleSuggestions"></datalist>
           </div>
 
           <div class="field">
-            <label for="hookSelect">Hook</label>
-            <select id="hookSelect"></select>
+            <label for="hookInput">Hook</label>
+            <input id="hookInput" list="hookSuggestions" placeholder="Type or select a hook" />
+            <datalist id="hookSuggestions"></datalist>
           </div>
 
           <div class="field">
-            <label for="useCaseSelect">Use case / audience</label>
-            <select id="useCaseSelect"></select>
+            <label for="useCaseInput">Use case / audience</label>
+            <input id="useCaseInput" list="useCaseSuggestions" placeholder="Type or select a use case" />
+            <datalist id="useCaseSuggestions"></datalist>
           </div>
 
           <div class="field">
-            <label for="platformTrendSelect">Visual trend</label>
-            <select id="platformTrendSelect"></select>
+            <label for="platformTrendInput">Visual trend</label>
+            <input id="platformTrendInput" list="trendSuggestions" placeholder="Type or select a visual trend" />
+            <datalist id="trendSuggestions"></datalist>
           </div>
 
           <div class="field">
@@ -588,7 +592,7 @@
           </div>
 
           <div class="stack-actions">
-            <button class="btn-primary" id="generateAdsBtn">Generate new ad</button>
+            <button class="btn-primary" id="generateAdsBtn">Generate 5 new ads</button>
             <button class="btn-secondary" id="generateInsightsBtn">Refresh insights</button>
             <button class="btn-secondary" id="saveStateBtn">Save locally</button>
             <button class="btn-danger" id="clearSavedBtn">Clear saved data</button>
@@ -633,7 +637,7 @@
           <div class="ads-toolbar">
             <div>
               <h2 style="margin-bottom:6px;">Generated display creative</h2>
-              <div class="muted">Click Generate new ad to create 5 editable concepts.</div>
+              <div class="muted">Click Generate 5 new ads to create 5 editable concepts based on your typed angle, hook, use case, and visual trend.</div>
             </div>
             <div class="small-actions">
               <button class="btn-secondary" id="downloadJsonBtn">Export ad set JSON</button>
